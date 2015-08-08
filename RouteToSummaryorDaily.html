@@ -1,0 +1,37 @@
+<html>
+<head>
+<script src="phonegap.js"></script>
+<script type="text/javascript" charset="utf-8" src="cordova-2.1.0.js"></script>
+<script type="text/javascript" charset="utf-8"> </script>
+<script>
+function EnterValues()
+{
+	window.location = 'Enter Daily Values' + '.html';
+}
+function Summary()
+{
+	window.location = 'Summary' + '.html';
+}
+function TaskSummary()
+{
+	window.location = 'TaskSummary' + '.html';
+}
+function logout()
+{
+		navigator.app.exitApp();
+}
+</script>
+</head>
+<body>
+<script>
+</script>
+<input type = 'Button' value = 'Enter Values' onclick = 'EnterValues()' />
+<br/><br/>
+<input type = 'Button' value = 'Monthly Summary' onclick = 'Summary()' />
+<br/><br/>
+<input type = 'Button' value = 'Task Summary' onclick = 'TaskSummary()' />
+<br/><br/>
+<input type = "button" onclick = "logout()" value ='Logout'/>
+<br/>
+</body>
+</html>
