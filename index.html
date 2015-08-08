@@ -1,0 +1,31 @@
+<html>
+<head>
+<script src="phonegap.js"></script>
+<script>
+function Validate()
+{
+	if(document.getElementById('Password').value == 'qwerty123*')
+	{
+		window.location = 'RouteToSummaryorDaily' + '.html';
+	}
+	else
+	{
+		alert('Invalid Password');
+		document.getElementById('Password').value = '';
+	}
+}	
+function logout()
+{
+		navigator.app.exitApp();
+}
+</script>
+</head>
+<body>
+<p> Enter Your Password</p>
+<input id = 'Password' type = 'password'></input>
+<br/><br/><br/>
+<input type = 'Button' value = 'Enter' onclick = 'Validate()' />
+<br/><br/><br/>
+<input type = "button" onclick = "logout()" value ='Logout'/>
+</body>
+</html>
