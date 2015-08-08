@@ -1,0 +1,98 @@
+<html>
+<head>
+<style>
+.Question 
+{
+	display: inline-block;
+}
+</style>
+<script src="phonegap.js"></script>
+<script type="text/javascript" charset="utf-8" src="cordova-2.1.0.js"></script>
+<script type="text/javascript" charset="utf-8"> </script>
+<script>
+var M1 = 0,M2 = 0,M3 = 0,M4 = 0,M5 = 0,M6 = 0,M7 = 0,M8 = 0,M9 =0,M10 =0,M11 =0,M12=0;
+function Ok()
+{
+	window.location = 'RouteToSummaryorDaily' + '.html';
+}
+function Populate()
+{	M1 = 0,M2 = 0,M3 = 0,M4 = 0,M5 = 0,M6 = 0,M7 = 0,M8 = 0,M9 =0,M10 =0,M11 =0,M12=0;
+	var db = openDatabase('GSPersonal', '1.0', 'GSPersonal', 2 * 1024 * 1024);
+	var SelectedQstn = document.getElementById('QuestionDrpDwn').value;
+	var SUMorAVG = 'SUM';
+	if(SelectedQstn == 'Q4' || SelectedQstn == 'Q10' || SelectedQstn == 'Q11')
+		SUMorAVG = 'AVG'
+	db.transaction(
+		function (tx) 
+		{
+			tx.executeSql('SELECT '+SUMorAVG+'('+SelectedQstn+') AS Qstn, Month FROM DailyLoggerGS GROUP BY Month', [], 
+			function (tx, results) 
+			{
+				var len = results.rows.length, i;
+				for (i = 0; i < len; i++)
+				{
+					if(parseInt(results.rows.item(i).Month) == 8)
+						M8 = results.rows.item(i).Qstn;
+					else if(parseInt(results.rows.item(i).Month) == 9)
+						M9 = results.rows.item(i).Qstn;
+					else if(parseInt(results.rows.item(i).Month) == 10)
+						M10 = results.rows.item(i).Qstn;
+					else if(parseInt(results.rows.item(i).Month) == 11)
+						M11 = results.rows.item(i).Qstn;
+					else if(parseInt(results.rows.item(i).Month) == 12)
+						M12 = results.rows.item(i).Qstn;
+					else if(parseInt(results.rows.item(i).Month) == 1)
+						M1 = results.rows.item(i).Qstn;
+					else if(parseInt(results.rows.item(i).Month) == 2)
+						M2 = results.rows.item(i).Qstn;							
+				}
+				document.getElementById("M1").innerHTML = M1;
+				document.getElementById("M2").innerHTML = M2;
+				document.getElementById("M8").innerHTML = M8;
+				document.getElementById("M9").innerHTML = M9;
+				document.getElementById("M10").innerHTML = M10;
+				document.getElementById("M11").innerHTML = M11;
+				document.getElementById("M12").innerHTML = M12;
+			},
+			function(){alert('No data present');});
+		}
+		);
+	
+}
+</script>
+</head>
+<body>
+<select id = 'QuestionDrpDwn'>
+  <option value="Q1">Sunrise Seen</option>
+  <option value="Q2">Sunset Seen</option>
+  <option value="Q3">Average Sunlight</option>
+  <option value="Q4">Bowel Rating</option>
+  <option value="Q5">Fruit Consumed</option>
+  <option value="Q6">Sketched</option>
+  <option value="Q7">Exercised</option>
+  <option value="Q8">Oiled Hair</option>
+  <option value="Q9">Oiled Body</option>
+  <option value="Q10">Avg. App Learning</option>
+  <option value="Q11">Avg. Career Progression</option>
+</select>
+<input type = 'Button' value = 'Get Values' onclick = 'Populate()' />
+<br/>
+<p class = 'Question'>August: &nbsp;</p><p class = 'Question' style = 'font-weight:bold;' id = "M8" ></p> <p class = 'Question' >&nbsp;.</p><br/>
+<p class = 'Question' >September: &nbsp;</p><p class = 'Question' style = 'font-weight:bold;' id = "M9" ></p><p class = 'Question' >&nbsp;.</p> <br/>
+<p class = 'Question' >October: &nbsp;</p><p class = 'Question' style = 'font-weight:bold;' id = "M10" ></p><p class = 'Question' >&nbsp;.</p> <br/>
+<p class = 'Question' >November: &nbsp;</p><p class = 'Question' style = 'font-weight:bold;' id = "M11" ></p><p class = 'Question' >&nbsp;.</p> <br/>
+<p class = 'Question' >December: &nbsp;</p><p class = 'Question' style = 'font-weight:bold;' id = "M12" ></p><p class = 'Question' >&nbsp;.</p> <br/>
+<p class = 'Question' >January: &nbsp;</p><p class = 'Question' style = 'font-weight:bold;' id = "M1" ></p><p class = 'Question' >&nbsp;.</p> <br/>
+<p class = 'Question' >February: &nbsp; </p><p class = 'Question' style = 'font-weight:bold;' id = "M2" ></p><p class = 'Question' >&nbsp;.</p> <br/>
+<script>
+	document.getElementById("M8").innerHTML = '0';
+	document.getElementById("M9").innerHTML = '0';
+	document.getElementById("M10").innerHTML = '0';
+	document.getElementById("M11").innerHTML = '0';
+	document.getElementById("M12").innerHTML = '0';
+	document.getElementById("M1").innerHTML = '0';
+	document.getElementById("M2").innerHTML = '0';
+</script>
+<input type = 'Button' value = 'Ok' onclick = 'Ok()' />
+</body>
+</html>
